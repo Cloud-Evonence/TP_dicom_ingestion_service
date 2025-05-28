@@ -5,7 +5,7 @@ name: Deploy DICOM Cloud Function
 on:
   push:
     branches:
-      # - main  # Change this if you're using a different deployment branch
+      # - main  # Change this if you're using a different deployment branch ok
       tp_dicom_v1.1
 
 jobs:
