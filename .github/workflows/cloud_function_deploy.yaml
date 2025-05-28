@@ -1,0 +1,41 @@
+# .github/workflows/deploy.yml
+
+name: Deploy DICOM Cloud Function
+
+on:
+  push:
+    branches:
+      # - main  # Change this if you're using a different deployment branch
+      tp_dicom_v1.1
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Set up Google Cloud SDK
+      uses: google-github-actions/setup-gcloud@v1
+      with:
+        project_id: 'project-4-workndemos'
+        service_account_key: '2999e7001e01a8ea3344c0dac0750e782398b24d'
+        export_default_credentials: true
+
+    - name: Deploy Cloud Function
+      run: |
+        gcloud functions deploy TP_gcs_to_bq_dicom \
+          --runtime python310 \
+          --trigger-resource tp_dicom \
+          --trigger-event google.storage.object.finalize \
+          --entry-point process_dicom_file \
+          --source . \
+          --region us-central1 \
+          --memory 512MB \
+          --timeout 540s \
