@@ -17,4 +17,5 @@ steps:
           --timeout 300s \
           --quiet
 
-timeout: 600s
+options:
+  logging: CLOUD_LOGGING_ONLY
