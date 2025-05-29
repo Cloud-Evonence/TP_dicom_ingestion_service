@@ -6,7 +6,7 @@ steps:
       - |
         echo "Deploying DICOM processing Cloud Function..."
 
-        gcloud functions deploy process_dicom_file \
+        gcloud functions deploy tp_dicom_data_ingestion \
           --runtime python310 \
           --entry-point process_dicom_file \
           --trigger-resource tp_dicom_files \
@@ -15,7 +15,6 @@ steps:
           --region us-central1 \
           --memory 512MB \
           --timeout 300s \
-          --gen1 \
           --quiet
 
 options:
