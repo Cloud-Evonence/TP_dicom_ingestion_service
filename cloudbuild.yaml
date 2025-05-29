@@ -11,10 +11,11 @@ steps:
           --entry-point process_dicom_file \
           --trigger-resource tp_dicom_files \
           --trigger-event google.storage.object.finalize \
-          --source . \
+          --source=. \
           --region us-central1 \
           --memory 512MB \
           --timeout 300s \
+          --gen1 \
           --quiet
 
 options:
